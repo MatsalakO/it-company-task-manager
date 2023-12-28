@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Task Type</h1>
+    {% if task-type_list %}
+    	<ul>
+        {% for task-type in task-type_list %}
+            <li>{{ task-type.name }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

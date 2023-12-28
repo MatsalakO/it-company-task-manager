@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Worker in detail</h1>
+  <div>
+    Username: {{ worker.username }}<br>
+    First name: {{ worker.first_name }}<br>
+    Last name: {{ worker.last_name }}<br>
+  </div>
+  <div>Position: {{ worker.position }}</div>
+  {% if worker.tasks.all %}
+    {% for task in worker.tasks.all %}
+      <hr>
+      <p>{{ task.id }} {{ task.name }}</p>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

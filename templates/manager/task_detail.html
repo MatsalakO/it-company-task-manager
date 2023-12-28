@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Tasks Detail</h1>
+  <h3>Type {{ task.task_type.name }}</h3>
+  <h5>Workers</h5>
+  {% if task.assignees.all %}
+    {% for worker in task.assignees.all %}
+      <p>{{ worker.username }}
+        {% if worker.first_name and worker.last_name %}
+          ({{ worker.first_name }} {{ worker.last_name }})
+        {% endif %}
+      </p>
+    {% endfor %}
+  {% else %}
+    <p>There aren`t any workers</p>
+
+
+  {% endif %}
+{% endblock %}

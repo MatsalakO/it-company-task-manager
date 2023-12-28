@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Tasks</h1>
+  {% if task_list %}
+    <ul>
+      {% for task in task_list %}
+        <li>
+          <a href="{% url 'manager:task-detail' task.id %}">
+            {{ task.name }}: {{ task.deadline }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no tasks</p>
+  {% endif %}
+{% endblock %}
