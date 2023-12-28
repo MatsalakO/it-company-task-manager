@@ -1,10 +1,11 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
 class TaskType(models.Model):
-    name = models.CharField(max_length=255, null=False)
+    name = models.CharField(max_length=255)
 
     class Meta:
         ordering = ["name"]
@@ -16,9 +17,12 @@ class TaskType(models.Model):
 class Position(models.Model):
     name = models.CharField(max_length=255, null=False)
 
+    def __str__(self):
+        return self.name
+
 
 class Worker(AbstractUser):
-    position = models.ForeignKey(Position, on_delete=models.CASCADE, null=False)
+    position = models.ForeignKey(Position, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         verbose_name = "worker"
@@ -37,11 +41,11 @@ class Task(models.Model):
 
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=255)
-    deadline = models.DateTimeField(auto_now_add=True)
+    deadline = models.DateField(blank=False)
     is_completed = models.BooleanField(default=False)
     priority = models.CharField(max_length=2, choices=Priority.choices, default=Priority.NORMAL)
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
-    assignees = models.ManyToManyField(Worker, related_name="tasks")
+    assignees = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="tasks")
 
     def __str__(self):
         return f"{self.name} with {self.priority} priority"
