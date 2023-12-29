@@ -2,10 +2,10 @@
 
 {% block content %}
 	<h1>Task Type</h1>
-    {% if task-type_list %}
+    {% if task_type_list %}
     	<ul>
-        {% for task-type in task-type_list %}
-            <li>{{ task-type.name }}</li>
+        {% for type in task_type_list %}
+            <li>{{ type.name }}</li>
         {% endfor %}
         </ul>
     {% endif %}
