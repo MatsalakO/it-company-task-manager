@@ -1,18 +1,37 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Workers</h1>
+  <h1>
+    Workers
+    <a style="float: right" href="{% url 'manager:worker-create' %}">
+      +
+    </a>
+  </h1>
+
   {% if worker_list %}
-    <ul>
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Position</th>
+      </tr>
       {% for worker in worker_list %}
-        <li>
-          <a href="{% url 'manager:worker-detail' worker.id %}">
-            {{ worker.username }}
-          </a>
-      </li>
+        <tr>
+          <td>
+            <a href="{% url 'manager:worker-detail' worker.id %}">
+              {{ worker.id }}
+            </a>
+          </td>
+          <td>{{ worker.username }}</td>
+          <td>{{ worker.first_name }}</td>
+          <td>{{ worker.last_name }}</td>
+          <td>{{ worker.position }}</td>
+        </tr>
       {% endfor %}
-    </ul>
+    </table>
   {% else %}
-      <p>There aren`t any tasks</p>
+    <p>There aren`t any workers</p>
   {% endif %}
 {% endblock %}

@@ -1,12 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<h1>Position</h1>
-    {% if position_list %}
-    	<ul>
-        {% for position in position_list %}
-            <li>{{ position.name }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
+  <h1>
+    Position List
+    <a style="float: right" href="{% url 'manager:position-create' %}">
+      +
+    </a>
+  </h1>
+  {% if position_list %}
+    <table class="table">
+    <tr>
+      <th>Position</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
+    {% for position in position_list %}
+      <tr>
+        <td>{{ position.name }}</td>
+        <td><a href="{% url 'manager:position-update' pk=position.id %}">UPDATE</a></td>
+        <td><a href="{% url 'manager:position-delete' pk=position.id %}">DELETE</a></td>
+      </tr>
+    {% endfor %}
+  {% endif %}
 {% endblock %}

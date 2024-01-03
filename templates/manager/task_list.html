@@ -1,17 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Tasks</h1>
+  <h1>
+    Tasks
+    <a style="float: right" href="{% url 'manager:task-create' %}">
+      +
+    </a>
+  </h1>
   {% if task_list %}
-    <ul>
-      {% for task in task_list %}
-        <li>
+    <table class="table">
+    <tr>
+      <th>Task name</th>
+      <th>Deadline</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
+    {% for task in task_list %}
+      <tr>
+        <td>
           <a href="{% url 'manager:task-detail' task.id %}">
-            {{ task.name }}: {{ task.deadline }}
+            {{ task.name }}
           </a>
-        </li>
-      {% endfor %}
-    </ul>
+        </td>
+        <td>{{ task.deadline }}</td>
+        <td>
+          <a href="{% url 'manager:task-update' pk=task.id %}">
+            UPDATE
+          </a>
+        </td>
+        <td><a href="{% url 'manager:task-delete' pk=task.id %}">DELETE</a></td>
+      </tr>
+    {% endfor %}
   {% else %}
     <p>There are no tasks</p>
   {% endif %}
