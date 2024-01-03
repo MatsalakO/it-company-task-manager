@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
+from manager.forms import WorkerCreationForm
 from manager.models import Worker, Task, Position, TaskType
 
 
@@ -122,13 +123,5 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
 
 class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Worker
-    fields = "__all__"
-    success_url = reverse_lazy("manager:worker-list")
-    template_name = "manager/worker_form.html"
+    form_class = WorkerCreationForm
 
-
-class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
-    model = Worker
-    fields = "__all__"
-    success_url = reverse_lazy("manager:worker-list")
-    template_name = "manager/worker_form.html"
