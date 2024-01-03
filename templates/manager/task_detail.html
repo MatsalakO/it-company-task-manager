@@ -1,10 +1,26 @@
 {% extends "base.html" %}
-
 {% block content %}
-  <h1>Tasks Detail</h1>
-  <h3>Type {{ task.task_type.name }}</h3>
-  <h5>Workers</h5>
+  <h1>
+    {{ task.name }}
+    <a href="{% url 'manager:task-delete' pk=task.id %}" class="btn btn-danger link-to-page">
+      Delete
+    </a>
+    <a href="{% url 'manager:task-update' pk=task.id %}" class="btn btn-secondary link-to-page">
+      Update
+    </a>
+  </h1>
+  <h3>Type: {{ task.task_type.name }}</h3>
+  {% if user in task.assignees.all %}
+    <a href="{% url 'manager:task-worker-update' pk=task.id %}" class="btn btn-danger link-to-page">
+      Delete me from this task
+    </a>
+  {% else %}
+    <a href="{% url 'manager:task-worker-update' pk=task.id %}" class="btn btn-success link-to-page">
+      Assign me to this task
+    </a>
+  {% endif %}
   {% if task.assignees.all %}
+    <h5>Worker{{ task.assignees.all|pluralize }}</h5>
     {% for worker in task.assignees.all %}
       <p>{{ worker.username }}
         {% if worker.first_name and worker.last_name %}
@@ -14,7 +30,5 @@
     {% endfor %}
   {% else %}
     <p>There aren`t any workers</p>
-
-
   {% endif %}
 {% endblock %}

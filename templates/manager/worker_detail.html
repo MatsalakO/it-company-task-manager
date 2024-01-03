@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
   <h1>Worker in detail</h1>
   <div>
@@ -8,10 +7,11 @@
     Last name: {{ worker.last_name }}<br>
   </div>
   <div>Position: {{ worker.position }}</div>
+  <br>
   {% if worker.tasks.all %}
+    <p><strong>{{ worker.username }} task{{ worker.tasks.count|pluralize }}:</strong></p>
     {% for task in worker.tasks.all %}
-      <hr>
-      <p>{{ task.id }} {{ task.name }}</p>
+      <p>{{ task.id }} {{ task.name }} <a href="{% url 'manager:task-detail' pk=task.id %}">More</a></p>
     {% endfor %}
   {% endif %}
 {% endblock %}

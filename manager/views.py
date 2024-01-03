@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -94,11 +94,13 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
     form_class = TaskForm
+    success_url = reverse_lazy("manager:task-list")
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     form_class = TaskForm
+    success_url = reverse_lazy("manager:task-list")
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -121,3 +123,13 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Worker
     form_class = WorkerCreationForm
 
+
+@login_required
+def task_worker_update(request, pk):
+    worker = request.user
+    task = Task.objects.get(pk=pk)
+    if worker in task.assignees.all():
+        task.assignees.remove(worker)
+    else:
+        task.assignees.add(worker)
+    return redirect("manager:task-detail", pk=pk)
