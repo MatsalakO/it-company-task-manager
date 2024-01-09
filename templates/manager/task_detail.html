@@ -1,34 +1,46 @@
-{% extends "base.html" %}
+{% extends "layouts/base_sections.html" %}
 {% block content %}
-  <h1>
-    {{ task.name }}
-    <a href="{% url 'manager:task-delete' pk=task.id %}" class="btn btn-danger link-to-page">
-      Delete
-    </a>
-    <a href="{% url 'manager:task-update' pk=task.id %}" class="btn btn-secondary link-to-page">
-      Update
-    </a>
-  </h1>
-  <h3>Type: {{ task.task_type.name }}</h3>
-  {% if user in task.assignees.all %}
-    <a href="{% url 'manager:task-worker-update' pk=task.id %}" class="btn btn-danger link-to-page">
-      Delete me from this task
-    </a>
-  {% else %}
-    <a href="{% url 'manager:task-worker-update' pk=task.id %}" class="btn btn-success link-to-page">
-      Assign me to this task
-    </a>
-  {% endif %}
-  {% if task.assignees.all %}
-    <h5>Worker{{ task.assignees.all|pluralize }}</h5>
-    {% for worker in task.assignees.all %}
-      <p>{{ worker.username }}
-        {% if worker.first_name and worker.last_name %}
-          ({{ worker.first_name }} {{ worker.last_name }})
-        {% endif %}
-      </p>
-    {% endfor %}
-  {% else %}
-    <p>There aren`t any workers</p>
-  {% endif %}
+  <div class="page-header min-vh-75 relative">
+    <div class="col-lg-7 text-center mx-auto">
+      <h1 class="pt-3 mt-n5">
+        {{ task.name }}
+        <a href="{% url 'manager:task-delete' pk=task.id %}" class="btn btn-danger link-to-page">
+          Delete
+        </a>
+        <a href="{% url 'manager:task-update' pk=task.id %}" class="btn btn-secondary link-to-page">
+          Update
+        </a>
+      </h1>
+    </div>
+  </div>
+  <section class="pt-3 pb-4" id="count-stats">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 z-index-5 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
+          <h3>Type: {{ task.task_type.name }}</h3>
+          {% if user in task.assignees.all %}
+            <a href="{% url 'manager:task-worker-update' pk=task.id %}" class="btn btn-danger link-to-page">
+              Delete me from this task
+            </a>
+          {% else %}
+            <a href="{% url 'manager:task-worker-update' pk=task.id %}" class="btn btn-success link-to-page">
+              Assign me to this task
+            </a>
+          {% endif %}
+          {% if task.assignees.all %}
+            <h5>Worker{{ task.assignees.all|pluralize }}</h5>
+            {% for worker in task.assignees.all %}
+              <p>{{ worker.username }}
+                {% if worker.first_name and worker.last_name %}
+                  ({{ worker.first_name }} {{ worker.last_name }})
+                {% endif %}
+              </p>
+            {% endfor %}
+          {% else %}
+            <p>There aren't any workers</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}

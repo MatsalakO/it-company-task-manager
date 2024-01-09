@@ -1,17 +1,23 @@
-{% extends "base.html" %}
+{% extends "layouts/base_sections.html" %}
+{% load static %}
 {% block content %}
-  <h1>Worker in detail</h1>
-  <div>
-    Username: {{ worker.username }}<br>
-    First name: {{ worker.first_name }}<br>
-    Last name: {{ worker.last_name }}<br>
-  </div>
-  <div>Position: {{ worker.position }}</div>
-  <br>
-  {% if worker.tasks.all %}
-    <p><strong>{{ worker.username }} task{{ worker.tasks.count|pluralize }}:</strong></p>
-    {% for task in worker.tasks.all %}
-      <p>{{ task.id }} {{ task.name }} <a href="{% url 'manager:task-detail' pk=task.id %}">More</a></p>
-    {% endfor %}
-  {% endif %}
+{% include 'includes/page_header.html' with page_title="Worker in detail" %}
+  <section class="pt-1 pb-1" id="count-stats">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-4 z-index-4 border-radius-xl mt-n12 mx-auto py-3 blur shadow-blur">
+          <p>Username: {{ worker.username }}</p>
+          <p>First name: {{ worker.first_name }}</p>
+          <p>Last name: {{ worker.last_name }}</p>
+          <p>Position: {{ worker.position }}</p>
+          {% if worker.tasks.all %}
+            <p><strong>{{ worker.username }} task{{ worker.tasks.count|pluralize }}:</strong></p>
+            {% for task in worker.tasks.all %}
+              <p>{{ task.id }} {{ task.name }} <a href="{% url 'manager:task-detail' pk=task.id %}">More</a></p>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}

@@ -1,36 +1,51 @@
-{% extends "base.html" %}
+{% extends "layouts/base_sections.html" %}
+{% load static %}
 {% load crispy_forms_filters %}
 {% block content %}
-  <h1>
-    Tasks
-    <a style="float: right" href="{% url 'manager:task-create' %}">
-      +
-    </a>
-  </h1>
-  <form method="get" action="" class="form-inline">
-    {{ search_form|crispy }}
-    <input type="submit" value="🔍" class="btn-secondary">
-  </form>
-  {% if task_list %}
-    <table class="table">
-    <tr>
-      <th>Task name</th>
-      <th>Deadline</th>
-      <th>Priority</th>
-    </tr>
-    {% for task in task_list %}
-      <tr>
-        <td>
-          <a href="{% url 'manager:task-detail' task.id %}">
-            {{ task.name }}
-          </a>
-        </td>
-        <td>{{ task.deadline }}</td>
-        <td>{{ task.priority }}</td>
-      </tr>
-    {% endfor %}
-  {% else %}
-    <p>There are no tasks</p>
-  {% endif %}
-</table>
+  {% include "includes/page_header.html" with page_title="Tasks" %}
+  <section class="pt-3 pb-4" id="count-stats">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 z-index-5 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
+          <div class="row">
+            <form method="get" action="" class="form-inline">
+              <div class="input-group justify-content-xl-center">
+                {{ search_form|crispy }}
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-secondary" id="search-btn">
+                    🔍
+                  </button>
+                </div>
+                <a class="justify-content-xl-end btn btn-primary" href="{% url 'manager:task-create' %}">
+                  +
+                </a>
+              </div>
+            </form>
+            {% if task_list %}
+              <table class="table">
+                <tr>
+                  <th>Task name</th>
+                  <th>Deadline</th>
+                  <th>Priority</th>
+                </tr>
+                {% for task in task_list %}
+                  <tr>
+                    <td>
+                      <a href="{% url 'manager:task-detail' task.id %}">
+                        {{ task.name }}
+                      </a>
+                    </td>
+                    <td>{{ task.deadline }}</td>
+                    <td>{{ task.priority }}</td>
+                  </tr>
+                {% endfor %}
+              </table>
+            {% else %}
+              <p>There aren't any types</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}
