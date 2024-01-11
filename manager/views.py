@@ -189,7 +189,7 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("manager:worker-list")
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class TaskWorkerUpdate(View):
 
     def get(self, request, pk):
