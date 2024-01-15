@@ -31,8 +31,8 @@
                 {% for position in position_list %}
                   <tr>
                     <td>{{ position.name }}</td>
-                    <td><a href="{% url 'manager:position-update' pk=position.id %}">UPDATE</a></td>
-                    <td><a href="{% url 'manager:position-delete' pk=position.id %}">DELETE</a></td>
+                    <td><a href="{% url 'manager:position-update' pk=position.id %}" class="btn btn-warning">UPDATE</a></td>
+                    <td><a href="{% url 'manager:position-delete' pk=position.id %}" class="btn btn-danger">DELETE</a></td>
                   </tr>
                 {% endfor %}
               </table>
