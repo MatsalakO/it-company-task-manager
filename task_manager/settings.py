@@ -27,9 +27,9 @@ if os.path.isfile(dotenv_file):
 SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DJANGO_DEBUG", "") != False
+DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
-ALLOWED_HOSTS = ["task-manager-b0me.onrender.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "task-manager-b0me.onrender.com"]
 
 # Application definition
 
