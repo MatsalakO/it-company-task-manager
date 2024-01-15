@@ -16,8 +16,8 @@
   <section class="pt-3 pb-4" id="count-stats">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-lg-5 z-index-5 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
-          <h3>Type: {{ task.task_type.name }}</h3>
+        <div class="row col-lg-5 z-index-5 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
+          <h3 class="row justify-content-center">Type: {{ task.task_type.name }}</h3>
           {% if user in task.assignees.all %}
             <a href="{% url 'manager:task-worker-update' pk=task.id %}" class="btn btn-danger link-to-page">
               Delete me from this task
@@ -37,7 +37,7 @@
               </p>
             {% endfor %}
           {% else %}
-            <p>There aren't any workers</p>
+            <h1 class="justify-content-xl-center">There aren't any workers</h1>
           {% endif %}
         </div>
       </div>
