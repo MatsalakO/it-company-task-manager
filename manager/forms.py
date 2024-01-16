@@ -11,11 +11,19 @@ class WorkerCreationForm(UserCreationForm):
         fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "position",)
 
 
+class DateInput(forms.DateInput):
+    input_type = "date"
+
+
 class TaskForm(forms.ModelForm):
     assignees = forms.ModelMultipleChoiceField(
         queryset=get_user_model().objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=False
+    )
+
+    deadline = forms.DateField(
+        widget=DateInput()
     )
 
     class Meta:

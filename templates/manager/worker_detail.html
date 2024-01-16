@@ -1,8 +1,20 @@
 {% extends "layouts/base_sections.html" %}
 {% load static %}
 {% block content %}
-{% include 'includes/page_header.html' with page_title="Worker in detail" %}
-  <section class="pt-1 pb-1" id="count-stats">
+  <div class="page-header min-vh-75 relative">
+    <div class="col-lg-5 text-center mx-auto">
+      <h1 class="pt-3 mt-n6">
+        Worker in detail
+        <a href="{% url 'manager:worker-delete' pk=worker.id %}" class="btn btn-danger link-to-page">
+          Delete
+        </a>
+        <a href="{% url 'manager:worker-update' pk=worker.id %}" class="btn btn-secondary link-to-page">
+          Update
+        </a>
+      </h1>
+    </div>
+  </div>
+  <section class="pt-3 pb-4" id="count-stats">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-4 z-index-4 border-radius-xl mt-n12 mx-auto py-3 blur shadow-blur">

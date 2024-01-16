@@ -19,6 +19,8 @@ from manager.views import (
     PositionDeleteView,
     TaskTypeDeleteView,
     TaskWorkerUpdate,
+    WorkerDeleteView,
+    WorkerUpdateView,
 )
 
 app_name = "manager"
@@ -61,6 +63,9 @@ urlpatterns = [
         name="worker-detail"
     ),
     path("workers/create/", WorkerCreateView.as_view(), name="worker-create"),
+    path("workers/<int:pk>/update/", WorkerUpdateView.as_view(), name="worker-update"),
+
+    path("workers/<int:pk>/delete/", WorkerDeleteView.as_view(), name="worker-delete"),
     path(
         "task/<int:pk>/task_worker_update/",
         TaskWorkerUpdate.as_view(),
