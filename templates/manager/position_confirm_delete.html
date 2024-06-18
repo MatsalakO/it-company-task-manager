@@ -1,0 +1,22 @@
+{% extends "layouts/base_sections.html" %}
+{% block content %}
+{% include "includes/page_header.html" with page_title="Delete Position" %}
+  <section class="pt-3 pb-4" id="count-stats">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 z-index-5 border-radius-xl mt-n12 mx-auto py-3 blur shadow-blur">
+          <form action="" method="post">
+            {% csrf_token %}
+            <div class="text-center">
+              <p>Are you sure you want to delete the position: {{ position.name }}?</p>
+              <input type="submit" value="Yes, delete" class="btn btn-danger">
+              <a href="{% url 'manager:position-list'%}" class="btn btn-primary">
+                Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

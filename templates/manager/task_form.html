@@ -1,0 +1,21 @@
+{% extends "layouts/base_sections.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+{% include "includes/page_header.html" with page_title="Editing a task" %}
+  <section class="pt-3 pb-4" id="count-stats">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 z-index-5 border-radius-xl mt-n12 mx-auto py-3 blur shadow-blur">
+          <h1 class="row justify-content-center">{{ object|yesno:"Update,Create" }}</h1>
+          <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="text-center">
+              <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

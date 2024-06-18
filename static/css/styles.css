@@ -1,0 +1,16 @@
+body {
+    margin-top: 20px;
+}
+
+.link-to-page {
+    float: right;
+    margin: 0 2px 0 2px;
+}
+
+.full-page-bg {
+  background-image: url(static/img/curved.jpg);
+  background-size: cover;
+  background-position: center;
+
+}
+
